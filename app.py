@@ -138,3 +138,6 @@ with col2:
         state = agent.state.replace("_", " ").title()
         color = "🟢" if state == "Reached Goal" else ("🔴" if state == "Collision" else "🟡")
         st.markdown(f"**{agent.id}** {color}  \nState: `{state}`  \nDistance to Goal: `{dist:.1f}`")
+
+st.markdown("---")
+st.markdown("<div style='text-align: center; color: #888;'>Powered by Streamlit & Plotly | Multi-Agent Decision System Ecosystem</div>", unsafe_allow_html=True)
