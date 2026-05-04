@@ -1,90 +1,54 @@
-<div align="center">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" />
-  <img src="https://img.shields.io/badge/Plotly-239120?style=for-the-badge&logo=plotly&logoColor=white" />
-  <img src="https://img.shields.io/badge/Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white" />
+# 🤖 Multi-Agent RAG System
 
-  # 🤖 Multi-Agent Distributed Decision System
-  
-  **A scalable, responsive, and robust simulation platform for decentralized agent coordination, path planning, and V2V abstract conflict negotiation.**
-</div>
-
----
-
-## 📖 Overview
-
-The **Multi-Agent Decision System** is a sophisticated architectural simulation showcasing how independent autonomous agents navigate shared environments. Relying on continuous environment polling and dynamic state yielding, this engine provides a foundation for scalable **Decentralized Multi-Agent Path Finding (MAPF)**.
-
-This repository features:
-- **FAANG-Standard Python Architecture:** Abstract agent classes, structured decoupled state managers, and environment bounds logic.
-- **Robust V2V Communication Module:** Agents organically dispatch and receive multi-channel broadcast messaging to negotiate movement priority.
-- **Dynamic Streamlit Dashboard:** A vibrant, dark-mode native Python dashboard offering live visual playback mapped with Plotly Graph Objects.
-- **Extensive Test Coverage:** Validation pipelines powered by `pytest` mapped out locally to ensure mathematical consistency.
-
----
+A production-grade, self-correcting Multi-Agent Retrieval-Augmented Generation (RAG) system powered by local LLMs (Ollama/Llama-3). This project demonstrates a pipeline of autonomous agents working together to retrieve context, generate an answer, and independently review it for hallucinations.
 
 ## 🏗️ Architecture
 
-```mermaid
-graph TD;
-    A[Environment Engine] --> B[Collision Detection API]
-    A --> C[Global State Registry]
-    D[Local Planner] --> E[Coordination Strategy]
-    E --> F[Network / V2V Comms]
-    D -->|Extends| G[Base Agent Model]
-    H[Streamlit Dashboard] --> |Polls / Steps| A
-```
+The system uses three coordinated agents:
+1. **RetrieverAgent**: Embeds documents into a FAISS vector store using local HuggingFace embeddings (`all-MiniLM-L6-v2`) and retrieves context chunks based on semantic similarity.
+2. **GeneratorAgent**: Interfaces with a local Ollama instance (e.g., `llama3.2` or `llama-3`) to synthesize an answer grounded strictly in the retrieved context.
+3. **ReviewerAgent**: A self-correction agent that independently checks the Generator's draft against the context to detect hallucinations before showing the final output.
 
 ## 🚀 Quick Start
 
-Ensure you have Python 3.9+ installed and operational.
+Ensure you have Python 3.9+ and [Ollama](https://ollama.com) installed.
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/pavitra-d-byali/MultiAgent-RAG-System.git
-   cd MultiAgent-RAG-System
-   ```
+### 1. Setup Local LLM
 
-2. **Install Dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run the Dashboard**
-   ```bash
-   streamlit run app.py
-   ```
-   Navigate to `http://localhost:8501` to view the interactive dashboard.
-
----
-
-## 🧪 Testing
-
-To execute the unit testing validation suite ensuring zero collision regression:
+Pull a local model via Ollama (e.g., `llama3.2`):
 ```bash
-python -m pytest tests/
+ollama pull llama3.2
 ```
+*Ensure the Ollama server is running in the background.*
+
+### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run the Backend API (FastAPI)
+```bash
+uvicorn backend.main:app --reload --port 8000
+```
+
+### 4. Run the Frontend Dashboard (Streamlit)
+In a new terminal:
+```bash
+streamlit run frontend/app.py
+```
+Navigate to `http://localhost:8501` to view the interactive dashboard.
 
 ## 📂 Project Structure
 
 ```text
-├── app.py                      # Main Streamlit entrance and layout visualization
-├── core/                       
-│   ├── agent.py                # Base properties of spatial autonomous agents
-│   └── environment.py          # Spatial registry and master engine loop
-├── communication/              
-│   └── network.py              # V2V network messaging logic
-├── decision_making/            
-│   ├── coordination_strategy.py# Heuristic routing and yielding 
-│   └── local_planner.py        # Smart Agent discrete routing
-├── tests/
-│   └── test_simulation.py      # Unit safety tests
-└── requirements.txt            # Dependency graph
+├── backend/
+│   ├── main.py                 # FastAPI core backend
+│   └── agents/
+│       ├── retriever.py        # VectorDB and retrieval logic
+│       ├── generator.py        # Generation via local LLM
+│       └── reviewer.py         # Output verification logic
+├── frontend/
+│   └── app.py                  # Streamlit Chat interface
+├── requirements.txt            # Dependency graph
+└── README.md
 ```
-
-## 🤝 Contribution & License
-Feel free to open issues or PRs targeting the `main` branch. This codebase employs standard python type hinting and requests all PRs to natively pass local `pytest` CI requirements.
-
-<div align="center">
-  <i>Maintained with ❤️ for cutting edge open-source autonomy.</i>
-</div>

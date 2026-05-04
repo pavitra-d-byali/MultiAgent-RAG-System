@@ -1,0 +1,7 @@
+# Corporate Remote Work Policy 2026
+
+1. Eligibility: All full-time employees are eligible for up to 3 days of remote work per week.
+2. Core Hours: Remote workers must be online and available between 10:00 AM and 3:00 PM EST.
+3. Equipment: The company will provide a standard laptop and a $500 stipend for home office setup.
+4. Security: All remote work must be conducted over the company VPN. Public Wi-Fi without VPN is strictly prohibited.
+5. Travel: Employees working remotely may travel within the country, but must notify HR if working from a different time zone for more than a week.
