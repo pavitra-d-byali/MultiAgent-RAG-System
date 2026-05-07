@@ -7,3 +7,4 @@ env/
 demo_output.txt
 demo_output2.txt
 .pytest_cache/
+faiss_index/
