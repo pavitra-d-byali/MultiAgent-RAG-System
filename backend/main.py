@@ -1,12 +1,16 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 from agents.retriever import RetrieverAgent
 from agents.generator import GeneratorAgent
 from agents.reviewer import ReviewerAgent
 
-app = FastAPI(title="Multi-Agent RAG API", description="API for Multi-Agent RAG System using Ollama")
+app = FastAPI(title="Multi-Agent RAG API", description="API for Multi-Agent RAG System using Groq")
 
 # Global instances (in a real system these would be more carefully scoped)
 retriever = RetrieverAgent()

@@ -1,7 +1,8 @@
 import streamlit as st
 import requests
+import os
 
-API_URL = "http://localhost:8000"
+API_URL = os.environ.get("API_URL", "http://localhost:8000")
 
 st.set_page_config(page_title="Multi-Agent RAG", page_icon="🤖", layout="wide")
 
@@ -49,7 +50,7 @@ if query := st.chat_input("Ask about your documents..."):
     with st.chat_message("assistant"):
         with st.status("Agent Pipeline Running...", expanded=True) as status:
             st.write("🔍 RetrieverAgent finding context...")
-            st.write("🧠 GeneratorAgent drafting response (Ollama)...")
+            st.write("🧠 GeneratorAgent drafting response (Groq)...")
             st.write("🕵️ ReviewerAgent checking for hallucinations...")
             
             try:

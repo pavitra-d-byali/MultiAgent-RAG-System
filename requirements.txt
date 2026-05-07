@@ -9,3 +9,6 @@ langchain-huggingface
 langchain-text-splitters
 faiss-cpu
 sentence-transformers
+python-multipart
+python-dotenv
+groq
